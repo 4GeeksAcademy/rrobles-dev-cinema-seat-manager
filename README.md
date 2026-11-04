@@ -1,112 +1,41 @@
-# Hello World with Typescript
+# Cinema Seat Manager
 
-<!-- hide -->
-> By [@ehiber](https://github.com/ehiber) and contributors at [4Geeks Academy](https://4geeksacademy.com/)
+Prototipo en TypeScript para gestionar la reserva de asientos de una sala de cine de **8 filas × 10 asientos**. Reemplaza las cuadrículas de papel de la taquilla: permite ver la ocupación, reservar sin errores y encontrar rápido dos asientos juntos.
 
-[![build by developers](https://img.shields.io/badge/build_by-Developers-blue)](https://4geeks.com)
-[![twitter](https://img.shields.io/twitter/follow/4geeksacademy?style=social&logo=twitter)](https://twitter.com/4geeksacademy)
+Proyecto del bootcamp 4Geeks Academy (*Coding fundamentals with TypeScript*).
 
-*Estas instrucciones estan disponibles en [espanol](./README.es.md).*
-<!-- endhide -->
-Start coding a TypeScript/HTML/CSS website in 30 seconds by opening this template using 4Geeks' [One-Click Coding](https://s.4geeks.com/start?repo=https://github.com/4GeeksAcademy/typescript-hello) or locally on your computer.
-
-## Before you begin
-
-Install the packages by typing:
+## Cómo ejecutarlo
 
 ```bash
 npm install
+npm run console     # escenarios de prueba en la terminal
+npm run start       # interfaz web (reto extra) en http://localhost:5173
+npm run typecheck   # validación de tipos
 ```
 
-## How do I run my website to see live changes?
+## Modelo de datos
 
-Type on the command line:
+La sala es una matriz `number[][]`: `0` = libre, `1` = ocupado. Sin objetos ni clases, como pide el enunciado. Filas y columnas se numeran desde 0.
 
-```bash
-npm run start
-```
+## Estructura
 
-Then open your local URL in the browser (usually `http://localhost:5173`).
+| Archivo | Responsabilidad |
+|---|---|
+| `src/sala.ts` | Lógica central: crear, mostrar, reservar, contar y buscar asientos contiguos |
+| `src/escenarios.ts` | Escenarios de prueba: sala vacía, parcial, casi llena y llena |
+| `src/sesion.ts` | *Extra:* sesión de venta (marcar/desmarcar solo los asientos propios y confirmar la compra) |
+| `src/interfaz.ts` + `index.html` | *Extra:* mapa visual con Tailwind |
+| `src/main.ts` | Punto de entrada: consola o navegador |
 
-## How do I run this in GitHub Codespaces?
+## Versiones
 
-Run the same development server:
+- **v1.0**: funcionalidad principal y avanzada del enunciado, con los 4 escenarios de prueba en consola.
+- **v1.1**: interfaz web con Tailwind (reto extra opcional).
+- **v1.2**: sesión de venta. En cada sesión, el cajero o el cliente en el kiosko solo puede desmarcar los asientos que eligió en esa misma sesión. Las ventas anteriores quedan bloqueadas.
 
-```bash
-npm run start
-```
+## Roadmap
 
-Vite is configured to listen on `0.0.0.0`, so Codespaces can detect and forward port `5173` automatically.
-
-## How do I run only the TypeScript check?
-
-Use this command to validate only TypeScript without starting Vite:
-
-```bash
-npm run typecheck
-```
-
-## How do I run `main.ts` from the terminal?
-
-If you want to execute `./src/main.ts` directly and see `console.log` output in the terminal, run:
-
-```bash
-npm run console
-```
-
-This command is already wired to `./src/main.ts`.
-
-## Where do I write my code?
-
-It depends on the language:
-
-- `./src/main.ts` for TypeScript logic.
-- `./src/style.css` for styles (Tailwind CSS v4 is already imported).
-- `./index.html` for the HTML shell.
-
-You can add more files as needed, just make sure to import them from `main.ts`.
-
-Note: if you can see the "Hello Rigo" card and the message "If you can see this, Tailwind is working.", Tailwind is configured correctly.
-
-## Troubleshooting
-
-### I don't see my changes...
-
-Every time you change any file inside `./src`, the website refreshes automatically (hot reload).
-
-If changes still don't appear, refresh clearing cache:
-
-- Mac: `Cmd + Shift + R`
-- Windows/Linux: `Ctrl + Shift + R`
-
-## How do I include more images in my project?
-
-Add them inside `./public` and reference them in HTML using `/your-image-name.ext`.
-
-Example:
-
-```html
-<img src="/rigo-baby.jpg" alt="Rigo" />
-```
-
-## How do I include more TypeScript files?
-
-Add files into `./src` and import them from `main.ts`.
-
-Example:
-
-```ts
-import { myVar } from "./file2";
-```
-
-## How do I publish the website?
-
-This boilerplate is compatible with Vercel in one step.
-
-<!-- hide -->
-## Contributors
-
-This template was built as part of the [4Geeks Academy Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [ehiber](https://github.com/ehiber) and contributors. Find out more about our [AI Engineering Course](https://4geeksacademy.com/us/coding-bootcamps/ai-engineering), [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school's GitHub page](https://github.com/4geeksacademy/).
-<!-- endhide -->
+- **Persistencia entre sesiones:** hoy los datos viven en memoria y se pierden al recargar. El primer paso sería `localStorage`; el paso real, un backend con base de datos.
+- **Varias terminales a la vez:** un servidor que sea la única fuente de verdad y resuelva los conflictos cuando dos kioskos eligen el mismo asiento.
+- **Bloqueo temporal:** liberar automáticamente las selecciones que no se confirman pasados unos minutos.
+- **Funciones y horarios:** varias funciones por sala y cancelación hasta X minutos antes de cada una.
