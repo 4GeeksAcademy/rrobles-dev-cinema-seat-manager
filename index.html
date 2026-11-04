@@ -1,25 +1,64 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello World with Typescript</title>
+    <title>Cinema Seat Manager</title>
   </head>
   <body class="min-h-screen bg-slate-100 text-slate-900">
-    <main class="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center gap-6 p-6">
-      <h1 class="text-4xl font-bold tracking-tight">Hello World with Typescript</h1>
+    <main class="mx-auto flex max-w-3xl flex-col items-center gap-6 p-6">
+      <header class="text-center">
+        <h1 class="text-3xl font-bold tracking-tight">Cinema Seat Manager</h1>
+        <p class="mt-1 text-sm text-slate-500">Sala 1 · 8 filas × 10 asientos</p>
+      </header>
 
-      <section class="w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <img
-          src="/rigo-baby.jpg"
-          alt="Hello Rigo"
-          class="h-64 w-full bg-slate-50 object-contain p-2"
-        />
-        <div class="p-5">
-          <h2 class="text-xl font-semibold text-slate-900">Hello Rigo</h2>
-          <p id="app" class="mt-2 text-sm text-slate-600"></p>
+      <!-- Escenarios de prueba -->
+      <nav class="flex flex-wrap justify-center gap-2" aria-label="Escenarios">
+        <button id="btn-vacia" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">Sala vacía</button>
+        <button id="btn-parcial" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">Parcial</button>
+        <button id="btn-casi-llena" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">Casi llena</button>
+        <button id="btn-llena" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">Llena</button>
+      </nav>
+
+      <section class="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <!-- Pantalla -->
+        <div class="mx-auto mb-6 w-3/4 rounded-b-3xl bg-slate-300 py-1 text-center text-xs font-semibold tracking-widest text-slate-600">
+          PANTALLA
+        </div>
+
+        <!-- Mapa de asientos: lo dibuja src/interfaz.ts -->
+        <div id="sala" class="mx-auto flex w-fit flex-col gap-1.5"></div>
+
+        <!-- Leyenda -->
+        <div class="mt-6 flex flex-wrap justify-center gap-4 text-xs text-slate-600">
+          <span class="flex items-center gap-1.5"><span class="h-4 w-4 rounded border border-emerald-400 bg-emerald-50"></span>Libre</span>
+          <span class="flex items-center gap-1.5"><span class="h-4 w-4 rounded border border-rose-300 bg-rose-50"></span>Vendido</span>
+          <span class="flex items-center gap-1.5"><span class="h-4 w-4 rounded border border-sky-500 bg-sky-500"></span>Tu selección</span>
+          <span class="flex items-center gap-1.5"><span class="h-4 w-4 rounded border border-amber-500 bg-amber-300"></span>Par contiguo</span>
         </div>
       </section>
+
+      <!-- Conteo + búsqueda -->
+      <section class="flex w-full flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div class="flex gap-6 text-sm">
+          <p>Ocupados: <strong id="ocupados" class="text-rose-600">0</strong></p>
+          <p>Disponibles: <strong id="disponibles" class="text-emerald-600">0</strong></p>
+        </div>
+        <button id="btn-buscar" class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700">
+          Buscar 2 asientos juntos
+        </button>
+      </section>
+
+      <!-- Sesión de venta (carrito) -->
+      <section class="flex w-full flex-wrap items-center justify-between gap-4 rounded-2xl border border-sky-200 bg-sky-50 p-4 shadow-sm">
+        <p class="text-sm">Tu selección: <strong id="seleccion" class="text-sky-700">ninguno (0)</strong></p>
+        <button id="btn-confirmar" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700">
+          Confirmar compra
+        </button>
+      </section>
+
+      <!-- Resultado de la última operación -->
+      <p id="mensaje" class="min-h-6 text-center text-sm font-medium" aria-live="polite"></p>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
